@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "start": "react-scripts start"
   },
@@ -18,13 +19,15 @@
     "url": "https://github.com/likr/react-tutorial/issues"
   },
   "dependencies": {
-    "bulma": "^0.8.2",
+    "bulma": "^0.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "gh-pages": "^3.0.0",
     "react-scripts": "^3.4.1"
   },
+  "homepage": "https://likr.github.io/react-tutorial",
   "browserslist": {
     "production": [
       ">0.2%",

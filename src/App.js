@@ -1,60 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Hero = () => {
+const Image = ({ url }) => {
   return (
-    <section className="hero is-primary">
-      <div className="hero-body">
-        <div className="container">
-          <h1 className="title">Section</h1>
-          <h2 className="subtitle">hogehoge</h2>
-        </div>
+    <div className="card">
+      <div className="card-image">
+        <figure className="image">
+          <img alt="cute dog!" src={url} />
+        </figure>
       </div>
-    </section>
+    </div>
   );
 };
 
-const Body1 = () => {
-  return (
-    <section className="section">
-      <div className="container">
-        <div className="content">
-          <p>好きにおしゃれなサイトを作ってください</p>
-        </div>
+const Content = ({ data }) => {
+  if (data == null) {
+    return (
+      <div className="content">
+        <p>loading...</p>
       </div>
-    </section>
-  );
-};
-
-const Form = () => {
+    );
+  }
   return (
-    <section className="section">
-      <div className="field">
-        <label className="label">Name</label>
-        <div className="control">
-          <input className="input" />
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="content has-text-centered">
-        <p>&copy; 2020 Yosuke Onoue</p>
-      </div>
-    </footer>
+    <div className="columns is-vcentered is-multiline">
+      {data.message.map((url, i) => {
+        return (
+          <div className="column is-3">
+            <Image key={i} url={url} />
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
 const App = () => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("https://dog.ceo/api/breeds/image/random/12")
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
   return (
     <div>
-      <Hero />
-      <Body1 />
-      <Form />
-      <Footer />
+      <section className="hero">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">
+              Cute Dog Images from{" "}
+              <a href="https://dog.ceo/dog-api/">Dog API</a>
+            </h1>
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <Content data={data} />
+        </div>
+      </section>
     </div>
   );
 };
